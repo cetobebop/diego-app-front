@@ -1,31 +1,89 @@
-import { defineBoot } from '#q-app/wrappers';
-import axios, { type AxiosInstance } from 'axios';
+// import axiosRetry from 'axios-retry';
+import type { InternalAxiosRequestConfig } from 'axios';
+import axios from 'axios';
+import { ApiAuthRepository } from 'src/repository/Auth';
+import { ApiService } from 'src/services/Api';
+import { useUserStore } from 'src/stores/UserStore';
+import { usePatientStore } from 'src/stores/PatientStore';
+import { useClinicStore } from 'src/stores/ClinicCaseStore';
 
-declare module 'vue' {
-  interface ComponentCustomProperties {
-    $axios: AxiosInstance;
-    $api: AxiosInstance;
-  }
-}
+const api = axios.create({ baseURL: 'http://localhost:4000/api', withCredentials: true });
+const apiService = new ApiService(api)
+const authRepository = new ApiAuthRepository(apiService);
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({ baseURL: 'https://api.example.com' });
+interface AxiosRC extends InternalAxiosRequestConfig {_retry?: boolean} 
 
-export default defineBoot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
+api.interceptors.response.use(function (response) {
+   
+    return response;
+  }, async function (error) {
 
-  app.config.globalProperties.$axios = axios;
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
+    if(axios.isAxiosError(error)){
+      const originalRequest: AxiosRC | undefined = error.config;
 
-  app.config.globalProperties.$api = api;
-  // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
-  //       so you can easily perform requests against your app's API
+
+      // if(originalRequest && error.response?.status === 401 && !originalRequest._retry && !originalRequest.url?.includes('/auth/refresh_token') ){
+      //   console.log('Attempting to refresh token...');
+      //   const {token} = await authRepository.refreshToken()
+      //   console.log('Token refreshed:', token.value);
+      //   originalRequest._retry = true;
+      //   return api(originalRequest);
+      // }
+
+      
+
+      if(originalRequest && error.response?.status === 401 && !originalRequest._retry && !originalRequest.url?.includes('/auth/refresh_token')){
+      
+       
+        originalRequest._retry = true
+    
+
+        try {
+          console.log('Attempting to refresh token...');
+          const {token} = await authRepository.refreshToken()
+          originalRequest.headers["x_access_token"] = token.value
+          console.log('pasoooo')
+          return api(originalRequest); 
+
+        } catch (refreshError) {
+          
+          console.error('Token refresh failed:', refreshError);
+          authRepository.logout().then((res)=>{
+            console.log('Logout successful: ', res.status);
+            useUserStore().clearUser();
+            useClinicStore().clearClinicCases();
+            usePatientStore().clearPatients();
+            location.reload()
+          }).catch(()=>{
+            console.error('Logout failed:', refreshError);
+          })
+          console.log('pasoooo')
+
+          return Promise.reject(refreshError as Error);
+        }
+          
+        
+      }
+    
+    }
+    return Promise.reject(error as Error);
 });
+
+
+
+// axiosRetry(api, {
+//   retries: 1,
+//   retryDelay:(retryCount) => {
+//     return Math.pow(2, retryCount) * 1000; 
+//   },
+//   retryCondition(error) {
+//     if (error.response?.status === 401) {
+//       return true;
+//     }
+
+//     return false;
+//   }
+// });
+
 
 export { api };

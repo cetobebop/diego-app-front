@@ -6,6 +6,9 @@ import {
   createWebHistory,
 } from 'vue-router';
 import routes from './routes';
+import { useUserStore } from 'src/stores/UserStore';
+
+
 
 /*
  * If not building with SSR mode, you can
@@ -19,7 +22,7 @@ import routes from './routes';
 export default defineRouter(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
-    : process.env.VUE_ROUTER_MODE === 'history'
+    : process.env.VUE_ROUTER_MODE === 'hash'
       ? createWebHistory
       : createWebHashHistory;
 
@@ -32,6 +35,23 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
+
+
+  Router.beforeEach((to) => {
+    if(to.meta.requiresAuth && !useUserStore().isLoggedIn()) {
+      console.log('Access denied, redirecting to login');
+      return { path: '/login' };
+    }
+
+    else if(!to.meta.requiresAuth && useUserStore().isLoggedIn()) {
+      console.log('Access denied, redirecting to home');
+      return { path: '/' };
+    }
+
+
+
+    return true
+  })
 
   return Router;
 });
