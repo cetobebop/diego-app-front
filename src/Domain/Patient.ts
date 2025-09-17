@@ -52,10 +52,9 @@ export class Patient {
     }
 
     removeClinicCase(clinic_case_id: string){
-        const clinicCases = this.patient.clinicCasesId
-        console.log(clinicCases, ' casos clinicos antes de eliminar')
+        
+      
         this.patient.clinicCasesId = this.patient.clinicCasesId.filter(id => id !== clinic_case_id)
-        console.log(this.patient.clinicCasesId, ' casos clinicos despues de eliminar')
 
     }
 

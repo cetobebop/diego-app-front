@@ -43,26 +43,24 @@ watch(() => patientStore.getPatientsTotal, (newTotal) => {
 
 function onUpdate(e: number){
 
-  console.log('ejecutado')
+
     
 
    const current = e;
    const desc = !(current - 1) ? 0 : current - 1
-    console.log('current: ', current)
 
-    console.log('before: ', before.value)
 
     const skip = current > before.value ? (current - 1) * 30 : (desc) * 30
-    console.log('skip: ', skip)
+  
     apiPatients.getPatients({ skip }).then(res=>{
         patientStore.setPatients(res.patients)
         patientData.value.exist = true
         patientData.value.count = Math.ceil(res.total / 30)
-    }).catch(error=>{
+    }).catch(()=>{
         patientData.value.exist = false
         patientData.value.count = 0
         patientStore.setPatients([])
-        console.log('error en la paginacion', error)
+  
     })
 
     before.value = current - 1

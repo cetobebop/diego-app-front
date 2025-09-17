@@ -28,8 +28,8 @@ function getPatients(){
         loading.value = true
         patientStore.setPatients(res.patients)
         patientStore.setPatientsTotal(res.total)
-    }).catch((error)=>{
-        console.log('hubo un error el boton de obtener pacientes', error)
+    }).catch(()=>{
+     
     }).finally(()=>{
         loading.value = false
     })
