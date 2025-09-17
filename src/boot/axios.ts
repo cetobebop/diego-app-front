@@ -7,7 +7,9 @@ import { useUserStore } from 'src/stores/UserStore';
 import { usePatientStore } from 'src/stores/PatientStore';
 import { useClinicStore } from 'src/stores/ClinicCaseStore';
 
-const api = axios.create({ baseURL: 'http://localhost:4000/api', withCredentials: true });
+const path = !process.env.DEV ? 'https://diego-api-y17c.onrender.com' : 'http://localhost:4000/api'
+
+const api = axios.create({ baseURL: path, withCredentials: true });
 const apiService = new ApiService(api)
 const authRepository = new ApiAuthRepository(apiService);
 

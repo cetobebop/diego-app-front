@@ -39,12 +39,12 @@ export default defineRouter(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to) => {
     if(to.meta.requiresAuth && !useUserStore().isLoggedIn()) {
-      console.log('Access denied, redirecting to login');
+    
       return { path: '/login' };
     }
 
     else if(!to.meta.requiresAuth && useUserStore().isLoggedIn()) {
-      console.log('Access denied, redirecting to home');
+  
       return { path: '/' };
     }
 
