@@ -118,7 +118,7 @@ function onInputBirthdate(){
         const calculatedAge = calculateDateFromX(birthdate.value, new Date().toString())
         age.value = calculatedAge
    } catch {
-  
+        console.log('')
    }
 }
 
