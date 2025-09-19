@@ -19,7 +19,7 @@
 
           
             <div class="container-btn q-mt-md" >
-                <q-btn unelevated color="dark" type="submit" icon="add" class="q-py-lg q-px-sm text-weight-bold" style="min-width: 250px; max-width: 250px;" label="Crear"></q-btn>
+                <q-btn unelevated color="dark" type="submit" :loading="loading" icon="add" class="q-py-lg q-px-sm text-weight-bold" style="min-width: 250px; max-width: 250px;" label="Crear"></q-btn>
                 <div>
                     <q-btn unelevated color="white" icon="clear" type="reset" class="q-py-lg q-px-sm text-weight-bold" text-color="dark" outline style="min-width: 250px; max-width: 250px;" label="Descartar"></q-btn>
                 </div>
@@ -55,6 +55,7 @@ const title = ref<string>('')
 const pdf = ref<File | null>(null)
 const caseNumber = ref<number | null>(null)
 const rules = clinicCaseCreateInputRules()
+const loading = ref(false)
 
 
 function onReset(){
@@ -65,7 +66,11 @@ function onReset(){
 }
 
 function onSubmit(){
+
+    loading.value = true
     if(!caseNumber.value || !pdf.value){
+        loading.value = false
+
         showErrorSimplyNotifyMessage('El pdf no paso los requisitos')
         return
     }
@@ -88,6 +93,8 @@ function onSubmit(){
         }).then(()=>{}).catch(()=>{})
     }).catch(err =>{
         showErrorSimplyNotify(err)
+    }).finally(()=>{
+        loading.value = false
     })
 }
 

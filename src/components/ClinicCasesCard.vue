@@ -11,20 +11,20 @@
                 <clinic-cases-card-skeleton v-if="loading" ></clinic-cases-card-skeleton>
                 <clinic-cases-card-not-found v-if="!loading && countOfClinicCases === 0"></clinic-cases-card-not-found>
                 <template v-if="!loading">
-                    <template v-for="(cliCase, index) in clinicCasesStore.getClinicCases"   :key="index">
+                    <template v-for="(clinicCase, index) in clinicCasesStore.getClinicCases"   :key="index">
                         <div class="my-card col-xs-12 col-sm-5  q-mb-sm   cursor-pointer" style="min-width: 130px;">
                             <q-card  bordered flat>
-                                <q-card-section class="row" @click="onClick(cliCase.id)">
+                                <q-card-section class="row" @click="onClick(clinicCase.id)">
                                     <div class="col-xs-12 col-sm-10">
-                                        <div class="title  text-weight-bold content-center q-pr-xs ">{{ cliCase.title }}</div>
+                                        <div class="title  text-weight-bold content-center q-pr-xs ">{{ clinicCase.title }}</div>
                                         
-                                        <div class="text-subtitle2 content-center  "><span>Nro:</span> {{ cliCase.caseNumber}}</div>
+                                        <div class="text-subtitle2 content-center  "><span>Nro:</span> {{ clinicCase.caseNumber}}</div>
                                     
-                                        <div class="text-subtitle2 content-center"><span>Inicio:</span> {{ cliCase.beginningDate}}</div>
+                                        <div class="text-subtitle2 content-center"><span>Inicio:</span> {{ clinicCase.beginningDate}}</div>
                                         
                                     </div>
                                     <div class="col-xs-12 col-sm-2">
-                                        <q-btn unelevated icon="description" @click.stop="()=>{}" :href="cliCase.url" style="height: 100%; width: 100%;" color="dark"></q-btn>
+                                        <q-btn unelevated icon="description" @click.stop="()=>{}" @click="onSeePDF(clinicCase.url)" style="height: 100%; width: 100%;" color="dark"></q-btn>
                                     </div>                            
                                 </q-card-section>
                             </q-card>
@@ -84,6 +84,10 @@ function onClick(clinic_case_id: string){
     // router.push({ name: 'one_clinic_case', params: { patient_id: props.id, clinic_case_id } }).then(()=>{}).catch(()=>{})
     selectedClinicCaseId.value = clinic_case_id
     showDialog.value = true
+}
+
+function onSeePDF(url: string){
+    open(url, '_blank')
 }
 
 function onHide() {

@@ -37,13 +37,7 @@
                     </template>
                 </q-input>
             </div>
-            <!-- <div>
-                <q-file label="Historial (PDF)" :rules="rules.pdfFile" label-color="dark" outlined accept=".pdf" max-file-size="1000000" @rejected="onRejected" v-model="pdf">
-                    <template v-slot:prepend>
-                    <q-icon name="attach_file" />
-                    </template>
-                </q-file>
-            </div> -->
+          
             <div class="container-btn q-mt-md" >
                 <q-btn unelevated color="dark" type="submit" icon="add" class="q-py-lg q-px-sm text-weight-bold" style="min-width: 250px; max-width: 250px;" label="Crear"></q-btn>
                 <div>
@@ -68,7 +62,7 @@ import { calculateDateFromX } from 'src/utils/caculateDateFromX';
 import { useRouter } from 'vue-router';
 
 const rules = patientCreateInputRules()
-// const submitHiddenBtn = useTemplateRef('submitHiddenBtn')
+
 
 type SelectSex = {sex: 'masculino' | 'femenino'}
 
@@ -83,7 +77,8 @@ const birthdate = ref<string>('')
 const age = ref<number>(0)
 const sex = ref<SelectSex | null>(null)
 const beginningDate = ref<string>('')
-// const pdf = ref<File | null>(null)
+const loading = ref(false)
+
 
 const router = useRouter();
 
@@ -109,9 +104,7 @@ function onInputPhone(){
     }
 }
 
-// function onRejected(){
-//     showErrorSimplyNotifyMessage('El pdf no paso los requisitos')
-// }
+
 
 function onInputBirthdate(){
    try {
@@ -122,12 +115,9 @@ function onInputBirthdate(){
    }
 }
 
-// function handler(e: KeyboardEvent){
-//     if(e.key == 'Enter'){
-//         if(submitHiddenBtn.value) submitHiddenBtn.value.click()
-//     }
 
-// }
+
+
 
 function onReset(){
     name.value = ''
@@ -154,11 +144,15 @@ function createPatient(){
         }
     )
 
+    loading.value = true
+
     patientRepository.createPatient(patient.getPatientToServer()).then(async ()=>{
         showSuccessNotify('Paciente creado satisfactoriamente')
         await router.push('/')
     }).catch(error=>{
         showErrorSimplyNotify(error)
+    }).finally(()=>{
+        loading.value = false
     })
 }
 

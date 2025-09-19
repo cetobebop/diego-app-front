@@ -59,7 +59,7 @@ const title = ref<string>('')
 const pdf = ref<File | null>(null)
 const caseNumber = ref<string>('')
 const rules = clinicCaseCreateInputRules()
-
+const loading = ref(false)
 
 const clinicCaseRepository = new ApiClinicCasesRepository(ApiV1)
 
@@ -91,6 +91,9 @@ function onSubmit(){
         showErrorSimplyNotifyMessage('El número de historia es obligatorio')
         return
     }
+
+    loading.value = true
+
     const toUpdate: UpdateClinicCase = {
         beginningDate: convertDateToServerFormat(beginningDate.value),
         caseNumber: caseNumber.value.toString(),
@@ -111,6 +114,8 @@ function onSubmit(){
         }).then(()=>{}).catch(()=>{})
     }).catch(err =>{
         showErrorSimplyNotify(err)
+    }).finally(()=>{
+        loading.value = false
     })
 }
 

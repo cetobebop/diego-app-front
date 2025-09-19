@@ -21,7 +21,7 @@
                     </q-chip> {{ clinicCase.beginningDate }}
                 </div>
                 <div class="row q-mt-sm">
-                    <q-btn icon="description" class="col-12" unelevated color="dark" :href="clinicCase.url"></q-btn>
+                    <q-btn icon="description" class="col-12" unelevated color="dark" @click="onClick(clinicCase.url)"></q-btn>
                     <q-btn label="Cerrar" @click="onHide" class="col-12 q-mt-xs" outline color="dark"></q-btn>
                 </div>
             </q-card-section>
@@ -64,6 +64,9 @@ const clinicCase = ref<ClinicCaseType>({
     url: ''
 })
 
+function onClick(url: string){
+    open(url, '_blank')
+}
 
 function onShow(){
     const clinicCaseFound = clinicCaseStore.getClinicCaseById(props.id) 
