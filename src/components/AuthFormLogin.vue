@@ -107,11 +107,10 @@ const handleSubmit = () => {
     @media (900px > width ) {
         .auth-form-login{
             width: 350px;
-            height: 300px;
         }
 
         #auth-form-title{
-            font-size: 1.5em;
+            font-size: 1.2em;
 
         }
     }
