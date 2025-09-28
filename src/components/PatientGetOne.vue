@@ -3,7 +3,7 @@
 
     <div class="q-px-md justify-center q-mt-sm q-gutter-sm row wrap">
         <patient-get-one-skeleton v-if="!patient"></patient-get-one-skeleton>
-        <q-card class="col-8"  v-if="patient" style="min-width: 280px;" bordered flat>
+        <q-card class="col-sm-8 col-xs-11"  v-if="patient" style="min-width: 280px;" bordered flat>
             <q-card-section>
                 <div class="row">
                     <div class="title col-8 row content-center">

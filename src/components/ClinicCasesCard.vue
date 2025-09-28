@@ -7,12 +7,12 @@
     <q-scroll-area visible class="scroll-area">
         <div class="">
             
-            <div class="row clinic-cases justify-center" >
+            <div class="row clinic-cases" >
                 <clinic-cases-card-skeleton v-if="loading" ></clinic-cases-card-skeleton>
                 <clinic-cases-card-not-found v-if="!loading && countOfClinicCases === 0"></clinic-cases-card-not-found>
                 <template v-if="!loading">
                     <template v-for="(clinicCase, index) in clinicCasesStore.getClinicCases" :key="index">
-                        <div class="my-card col-xs-12 col-sm-5  q-mb-sm   cursor-pointer" style="min-width: 130px;">
+                        <div class="my-card col-xs-11 col-sm-11  q-mb-sm   cursor-pointer" style="min-width: 130px;">
                             <q-card  bordered flat>
                                 <q-card-section class="row" @click="onClick(clinicCase.id)">
                                     <div class="col-xs-12 col-sm-10">
@@ -23,7 +23,7 @@
                                         <div class="text-subtitle2 content-center"><span>Inicio:</span> {{ clinicCase.beginningDate}}</div>
                                         
                                     </div>
-                                    <div class="col-xs-12 col-sm-2">
+                                    <div class="col-xs-12 col-sm-2 btn-file">
                                         <q-btn unelevated icon="description" @click.stop="()=>{}" @click="onSeePDF(clinicCase.url)" style="height: 100%; width: 100%;" color="dark"></q-btn>
                                     </div>                            
                                 </q-card-section>
@@ -125,12 +125,15 @@ span{
 }
 
 
+
+
 @media (600px < width) {
     
     .my-card{
         margin-right: 5px;
     }
-   
+
+    
 }
 
 @media (600px > width) {
@@ -138,7 +141,10 @@ span{
     .scroll-area{
         height: 150px;
     }
-   
+    
+    .btn-file{
+        margin-top: 10px;
+    }
 }
 
 </style>
