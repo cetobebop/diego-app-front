@@ -1,6 +1,6 @@
 <template>
     <h1 class="text-center q-ma-md" style="line-height: 1.5em; font-size: 1.5em; font-weight: 700;">Historial de Cambios</h1>
-    <span  style="line-height: 1.5em; padding: 0 20px ; display: block; text-indent: 0; font-size: 1em; font-weight: 400;">Aqui se muestran todos los cambios realizados en el paciente, los puntos verdes representan los campos que se diferencian de la versión actual del paciente.</span>
+    <span  style="line-height: 1.5em; padding: 0 20px ; display: block; text-indent: 0; font-size: 1em; font-weight: 400;">Aquí se muestran todos los cambios realizados en el paciente. Los puntos verdes representan los campos que se diferencian de la versión actual del paciente.</span>
 
     <div class="q-px-md justify-center q-mt-sm q-gutter-sm row">
         <template v-for="hispat in historyPatients" :key="hispat.value.id">

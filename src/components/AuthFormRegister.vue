@@ -1,7 +1,7 @@
 <template>
     <div class="auth-form-register">
         <h1 id="auth-form-title">Fisium</h1>
-        <span id="auth-form-subtitle">Aplicación de fisioterapia para almacenar pacientes y sus historias clinicas.</span>
+        <span id="auth-form-subtitle">Aplicación de fisioterapia para almacenar pacientes y sus historias clínicas.</span>
         <q-form @submit.prevent="handleSubmit">
             <div class="column q-gutter-sm">
                 <div>
