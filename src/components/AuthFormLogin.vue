@@ -70,11 +70,11 @@ const handleSubmit = () => {
 
 <style scoped>  
     .auth-form-login{
+        min-width: 200px;
         width: 400px;
         margin: 0 auto;
         margin-top: 40px;
         height: 400px;
-        min-width: 200px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 5px;
         padding: 30px 15px 20px 15px;
@@ -105,7 +105,7 @@ const handleSubmit = () => {
  
 
     @media (900px > width ) {
-        .auth-form-register{
+        .auth-form-login{
             width: 350px;
             height: 300px;
         }
@@ -117,14 +117,14 @@ const handleSubmit = () => {
     }
 
     @media (500px > width ) {
-        .auth-form-register{
+        .auth-form-login{
             width: 300px;
         }
     }
 
-    /* @media (300px > width ) {
-        .auth-form-register{
-            width: 200px;
+    @media (300px > width ) {
+        .auth-form-login{
+            width: 270px;
         }
-    } */
+    }
 </style>

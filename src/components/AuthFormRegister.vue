@@ -112,13 +112,13 @@ const handleSubmit = () => {
 
     @media (500px > width ) {
         .auth-form-register{
-            width: 250px;
+            width: 300px;
         }
     }
 
     @media (300px > width ) {
         .auth-form-register{
-            width: 200px;
+            width: 270px;
         }
     }
 </style>

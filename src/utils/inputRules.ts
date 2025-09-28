@@ -30,7 +30,6 @@ export function patientCreateInputRules() {
             (val: string) => val?.length > 5 || 'Mínimo 6 caracteres',
             (val: string) => val?.length <= 8 || 'Máximo 8 caracteres',
             (val: string) => !/\s/g.test(val) || 'Sin espacios',
-            (val: string) => /^[0-9]+$/.test(val) || 'Solo números',
         ],
         tlf: [
             (val: string) => !!val || 'Obligatorio',
@@ -40,14 +39,16 @@ export function patientCreateInputRules() {
         beginningDate: [
             (val: string) => !!val || 'Obligatorio',
             (val: string) => new Date(val) < new Date() || 'Fecha inválida',
+            (val: string) => new Date(val) >= new Date('1920-01-01') || 'Fecha debe ser mayor o igual a 1920',
         ],
         birthdate: [
             (val: string) => !!val || 'Obligatorio',
             (val: string) => new Date(val) < new Date() || 'Fecha inválida',
+            (val: string) => new Date(val) >= new Date('1920-01-01') || 'Fecha debe ser mayor o igual a 1920',
         ],
         address: [
             (val: string) => val.length < 149 || 'Máximo 149 caracteres',
-
+            (val: string) => !!val || 'Obligatorio',
         ],
         sex: [
             (val: string) => !!val || 'Obligatorio',
@@ -55,7 +56,6 @@ export function patientCreateInputRules() {
         pdfFile: [
             (val: string) => !!val || 'Obligatorio',
         ]
-        
     };
 }
 
@@ -77,6 +77,7 @@ export function clinicCaseCreateInputRules() {
         beginningDate: [
             (val: string) => !!val || 'Obligatorio',
             (val: string) => new Date(val) < new Date() || 'Fecha inválida',
+            (val: string) => new Date(val) >= new Date('1920-01-01') || 'Fecha debe ser mayor o igual a 1920',
         ],
         pdfFile: [
             (val: string) => !!val || 'Obligatorio',
