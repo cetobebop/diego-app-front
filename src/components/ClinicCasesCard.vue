@@ -9,10 +9,10 @@
             
             <div class="row clinic-cases" >
                 <clinic-cases-card-skeleton v-if="loading" ></clinic-cases-card-skeleton>
-                <clinic-cases-card-not-found v-if="!loading && countOfClinicCases === 0"></clinic-cases-card-not-found>
+                <clinic-cases-card-not-found class="col-12" v-if="!loading && countOfClinicCases === 0"></clinic-cases-card-not-found>
                 <template v-if="!loading">
                     <template v-for="(clinicCase, index) in clinicCasesStore.getClinicCases" :key="index">
-                        <div class="my-card col-xs-11 col-sm-11  q-mb-sm   cursor-pointer" style="min-width: 130px;">
+                        <div class="my-card col-xs-12 col-sm-11  q-mb-sm   cursor-pointer" style="min-width: 130px;">
                             <q-card  bordered flat>
                                 <q-card-section class="row" @click="onClick(clinicCase.id)">
                                     <div class="col-xs-12 col-sm-10">
