@@ -26,7 +26,7 @@
                             <q-icon name="cake" />
                         </template>
                     </q-input>
-                    <q-input class="mt" outlined :rules="rules.beginningDate" v-model="beginningDate" label="Inicio:" type="date"></q-input>
+                    <q-input class="mt" outlined :rules="rules.beginningDate" color="dark" v-model="beginningDate" label="Inicio:" type="date"></q-input>
                 </div>
             </div>
 

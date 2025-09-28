@@ -1,13 +1,14 @@
 <template>
     <div class="auth-form-register">
-        <h1 id="auth-form-title">Registrarse</h1>
+        <h1 id="auth-form-title">Fisium</h1>
+        <span id="auth-form-subtitle">Aplicación de fisioterapia para almacenar pacientes y sus historias clinicas.</span>
         <q-form @submit.prevent="handleSubmit">
             <div class="column q-gutter-sm">
                 <div>
-                    <q-input standout="bg-dark text-white" :rules="authInputRules().username" v-model="username" label="Nombre de usuario:" />
+                    <q-input outlined color="dark" :rules="authInputRules().username" v-model="username" label="Nombre de usuario:" />
                 </div>
                 <div style="margin-top: 10px;">
-                    <q-input standout="bg-dark text-white" :type="isPwd ? 'password' : 'text'" v-model="password" label="Contraseña:" :rules="authInputRules().password">
+                    <q-input outlined color="dark" :type="isPwd ? 'password' : 'text'" v-model="password" label="Contraseña:" :rules="authInputRules().password">
                          <template v-slot:append>
                             <q-icon
                                 :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -17,7 +18,7 @@
                         </template>
                     </q-input>
                 </div>
-                <q-btn :loading="loading" type="submit"  style="margin-top:10px; background: #000; color: white; padding: 16px 10px; font-weight: 700;" label="Enviar" />
+                <q-btn :loading="loading" unelevated type="submit"  style="margin-top:10px; background: #000; color: white; padding: 16px 10px; font-weight: 700;" label="Registrarse" />
             </div>
             
         </q-form>
@@ -66,23 +67,35 @@ const handleSubmit = () => {
         width: 400px;
         margin: 0 auto;
         margin-top: 40px;
-        height: 450px;
+        height: 400px;
         min-width: 200px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 5px;
-        padding: 0 10px 20px 10px;
+        padding: 30px 15px 20px 15px;
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        flex-direction: column; 
+        justify-content: flex-start;
     }
 
 
     #auth-form-title{
         text-align: center;
-        font-size: 3em;
-        margin: 0;
-        color: rgba(0, 0, 0, 0.5)
+        font-size: 1em;
+        font-weight: 700;
+        margin: 0 ;
+        line-height: 1em; 
+        height: fit-content;
+        color: #000
 
+    }
+
+    #auth-form-subtitle{
+        text-align: left;
+        font-size: 0.8em;
+        font-weight: 400;
+        margin: 10px 0;
+        height: fit-content;
+        color: #000
     }
  
 
@@ -92,7 +105,7 @@ const handleSubmit = () => {
         }
 
         #auth-form-title{
-            font-size: 2.5em;
+            font-size: 1.5em;
 
         }
     }

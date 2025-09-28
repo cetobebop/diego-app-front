@@ -1,6 +1,8 @@
 <template>
+    <h1 class="text-center q-ma-md" style="line-height: 1.5em; font-size: 1.5em; font-weight: 700;">Historial de Cambios</h1>
+    <span  style="line-height: 1.5em; padding: 0 20px ; display: block; text-indent: 0; font-size: 1em; font-weight: 400;">Aqui se muestran todos los cambios realizados en el paciente, los puntos verdes representan los campos que se diferencian de la versión actual del paciente.</span>
+
     <div class="q-px-md justify-center q-mt-sm q-gutter-sm row">
-        
         <template v-for="hispat in historyPatients" :key="hispat.value.id">
             
             <q-card class="col-8" v-if="hispat.changes !== null " style="min-width: 280px;" bordered flat>
@@ -45,7 +47,7 @@
                         {{ hispat.value.address }} <q-badge v-if="hispat.changes?.propModified.includes('address')" style="max-height: 10px; margin-left: 5px;" rounded color="green" />
                     </div>
                     <div class="q-mt-sm">
-                        <q-btn label="Actualizar Paciente" @click="onUpdate(hispat.value)" icon="add" unelevated color="dark" style="padding: 10px;  font-weight: 700;"></q-btn>
+                        <q-btn label="Restablecer Paciente" @click="onUpdate(hispat.value)" icon="add" unelevated color="dark" style="padding: 10px;  font-weight: 700;"></q-btn>
                     </div>
                 </q-card-section>
             

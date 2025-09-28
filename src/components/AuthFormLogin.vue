@@ -1,15 +1,17 @@
 <template>
-    <div class="auth-form-register">
-        <h1 id="auth-form-title">Iniciar Sesión</h1>
+    <div class="auth-form-login">
+        
+        <h1 id="auth-form-title">Fisium</h1>
+        <span id="auth-form-subtitle">Aplicación de fisioterapia para almacenar pacientes y sus historias clinicas.</span>
         <q-form @submit.prevent="handleSubmit">
             <div class="column q-gutter-sm">
 
                 <div >
-                    <q-input standout="bg-dark text-white" :rules="authInputRules().username" v-model="username" label="Nombre de usuario:" />
+                    <q-input outlined :rules="authInputRules().username" color="dark" v-model="username" label="Nombre de usuario:" />
                 </div>
                 <div style="margin-top: 10px;">
-                    <q-input standout="bg-dark text-white" :type="isPwd ? 'password' : 'text'" v-model="password" label="Contraseña:" :rules="authInputRules().password">
-                       <template v-slot:append>
+                    <q-input outlined :type="isPwd ? 'password' : 'text'" color="dark" v-model="password" label="Contraseña:" :rules="authInputRules().password">
+                    <template v-slot:append>
                             <q-icon
                                 :name="isPwd ? 'visibility_off' : 'visibility'"
                                 class="cursor-pointer"
@@ -20,10 +22,11 @@
 
 
                 </div>
-                <q-btn  type="submit"  style="margin-top:10px; background: #000; color: white; padding: 16px 10px; font-weight: 700;" :loading="loading" label="Enviar" />
+                <q-btn  type="submit" unelevated  style="margin-top:10px; background: #000; color: white; padding: 16px 10px; font-weight: 700;" :loading="loading" label="Iniciar Sesión" />
             </div>
             
         </q-form>
+        
     </div>
 </template>
 
@@ -66,36 +69,49 @@ const handleSubmit = () => {
 </script>
 
 <style scoped>  
-    .auth-form-register{
+    .auth-form-login{
         width: 400px;
         margin: 0 auto;
         margin-top: 40px;
-        height: 450px;
+        height: 400px;
         min-width: 200px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 5px;
-        padding: 0 10px 20px 10px;
+        padding: 30px 15px 20px 15px;
         display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        flex-direction: column; 
+        justify-content: flex-start;
     }
 
 
     #auth-form-title{
         text-align: center;
-        font-size: 3em;
-        margin: 0;
-        color: rgba(0, 0, 0, 0.5)
+        font-size: 1em;
+        font-weight: 700;
+        margin: 0 ;
+        line-height: 1em; 
+        height: fit-content;
+        color: #000
+    }
+
+    #auth-form-subtitle{
+        text-align: left;
+        font-size: 0.8em;
+        font-weight: 400;
+        margin: 10px 0;
+        height: fit-content;
+        color: #000
     }
  
 
     @media (900px > width ) {
         .auth-form-register{
             width: 350px;
+            height: 300px;
         }
 
         #auth-form-title{
-            font-size: 2.5em;
+            font-size: 1.5em;
 
         }
     }

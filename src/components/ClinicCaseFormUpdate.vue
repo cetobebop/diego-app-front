@@ -9,10 +9,10 @@
         
         <q-form @submit.prevent="onSubmit" @reset="onReset">
             <div class="column">
-                <q-input outlined color="dark" ca :rules="rules.title" v-model="title" label="Titulo:"></q-input>
+                <q-input outlined color="dark"  :rules="rules.title" v-model="title" label="Titulo:"></q-input>
                 <q-input class="mt" outlined color="dark" :rules="rules.caseNumber" v-model="caseNumber" label="Nro de Historia:" type="number"></q-input>
-                <q-input class="mt" outlined :rules="rules.beginningDate" v-model="beginningDate" label="Inicio:" type="date"></q-input>
-                <q-file class="mt" label="Historial (PDF)" label-color="dark" outlined accept=".pdf" max-file-size="1000000" @rejected="onRejected" v-model="pdf">
+                <q-input class="mt" outlined color="dark" :rules="rules.beginningDate" v-model="beginningDate" label="Inicio:" type="date"></q-input>
+                <q-file class="mt" color="dark" label="Historial (PDF)" label-color="dark" outlined accept=".pdf" max-file-size="1000000" @rejected="onRejected" v-model="pdf">
                     <template v-slot:prepend>
                     <q-icon name="attach_file" />
                     </template>
