@@ -5,13 +5,13 @@
         <patient-get-one-skeleton v-if="!patient"></patient-get-one-skeleton>
         <q-card class="col-8"  v-if="patient" style="min-width: 280px;" bordered flat>
             <q-card-section>
-                <div class="row ">
-                    <div class="title col-10 row content-center">
+                <div class="row">
+                    <div class="title col-8 row content-center">
                         {{ patient.name }}
                     </div>
                     <div class="col row justify-end no-wrap row">
                         <q-btn :disable="patient.status !== 'Actualizado'" icon="history" style="padding: 0 3px;" @click="onGetHistory" unelevated></q-btn>
-                        <patient-get-one-menu class="q-ml-sm" :id="id"></patient-get-one-menu>
+                        <patient-get-one-menu class="q-ml-sm row content-center  " :id="id"></patient-get-one-menu>
                     </div>
                 </div>
             </q-card-section>

@@ -1,7 +1,7 @@
 <template>
  
     <div>
-       Tiene <span style="font-weight: 700; margin: 0 3px;"> {{countOfClinicCases}} </span> Historias Clinicas <span class="text-weight-bold">:</span>
+       <span style="font-weight: 700; margin: 0 3px;"> {{countOfClinicCases}} </span> Historias Clinicas <span class="text-weight-bold">:</span>
     </div>    
    
     <q-scroll-area visible class="scroll-area">
@@ -11,7 +11,7 @@
                 <clinic-cases-card-skeleton v-if="loading" ></clinic-cases-card-skeleton>
                 <clinic-cases-card-not-found v-if="!loading && countOfClinicCases === 0"></clinic-cases-card-not-found>
                 <template v-if="!loading">
-                    <template v-for="(clinicCase, index) in clinicCasesStore.getClinicCases"   :key="index">
+                    <template v-for="(clinicCase, index) in clinicCasesStore.getClinicCases" :key="index">
                         <div class="my-card col-xs-12 col-sm-5  q-mb-sm   cursor-pointer" style="min-width: 130px;">
                             <q-card  bordered flat>
                                 <q-card-section class="row" @click="onClick(clinicCase.id)">

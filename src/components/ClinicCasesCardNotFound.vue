@@ -9,10 +9,10 @@
 <style scoped>
 #title{
     text-align: center;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: 700;
-    margin: 0;
-    color: rgba(0, 0, 0, 0.3)
+    margin: 20px 0 0 0;
+    color: rgba(0, 0, 0)
 
 }
 </style>
