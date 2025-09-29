@@ -1,5 +1,5 @@
 <template>
-    <div id="patient-form-create" @keyup.enter='handler' tabindex="-1">
+    <div id="patient-form-create" tabindex="-1">
         <div id="title">
             <q-icon size="md" name="person_add"/>
             Actualizar Paciente
@@ -37,11 +37,10 @@
                 </q-input>
             </div>
             <div class="container-btn q-mt-md" >
-                <q-btn unelevated color="dark" type="submit" icon="add" class="q-py-lg q-px-sm text-weight-bold" style="min-width: 250px; max-width: 250px;" label="Actualizar"></q-btn>
+                <q-btn unelevated color="dark" :loading="loading" type="submit" icon="add" class="q-py-lg q-px-sm text-weight-bold" style="min-width: 250px; max-width: 250px;" label="Actualizar"></q-btn>
                 <div>
                     <q-btn unelevated color="white" icon="clear" type="reset" class="q-py-lg q-px-sm text-weight-bold" text-color="dark" outline style="min-width: 250px; max-width: 250px;" label="Descartar"></q-btn>
                 </div>
-                <button type="submit" style="display: none;" ref="submitHiddenBtn"></button>
                
             </div>
 
@@ -53,7 +52,7 @@
 <script setup lang="ts">
 
 
-import { onMounted, ref, useTemplateRef } from 'vue';
+import { onMounted, ref } from 'vue';
 import { patientCreateInputRules } from 'src/utils/inputRules';
 import { showErrorSimplyNotify, showErrorSimplyNotifyMessage } from 'src/utils/showNotifyError';
 import { PatientDto } from 'src/Dto/PatientDto';
@@ -77,7 +76,6 @@ interface Props {
     id: string
 }
 
-const submitHiddenBtn = useTemplateRef('submitHiddenBtn')
 const router = useRouter();
 const props = defineProps<Props>()
 
@@ -92,6 +90,7 @@ const birthdate = ref<string>('')
 const age = ref<number>(0)
 const sex = ref<SelectSex | null>(null)
 const beginningDate = ref<string>('')
+const loading = ref(false)
 
 
 
@@ -153,12 +152,7 @@ function onReset(){
     asingDefaultPatientValue().then(()=>{}).catch(()=>{})
 }
 
-function handler(e: KeyboardEvent){
-    if(e.key == 'Enter'){
-        if(submitHiddenBtn.value) submitHiddenBtn.value.click()
-    }
 
-}
 
 function onInputBirthdate(){
    try {
@@ -185,6 +179,8 @@ function updatePatient(){
         }
     )
 
+    loading.value = true
+            
     patientRepository.updatePatient(props.id, patient.getPatientToServer()).then(async ()=>{
         showSuccessNotify('Paciente actualizado satisfactoriamente')
         await router.push({
@@ -195,7 +191,14 @@ function updatePatient(){
         })
     }).catch(error=>{
         showErrorSimplyNotify(error)
+    }).finally(()=>{
+        loading.value = false
     })
+
+
+  
+
+    
 }
 
 function onSubmit(){

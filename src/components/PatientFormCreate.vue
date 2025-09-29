@@ -39,11 +39,11 @@
             </div>
           
             <div class="container-btn q-mt-md" >
-                <q-btn unelevated color="dark" type="submit" icon="add" class="q-py-lg q-px-sm text-weight-bold" style="min-width: 250px; max-width: 250px;" label="Crear"></q-btn>
+                <q-btn unelevated color="dark" :loading="loading" type="submit" icon="add" class="q-py-lg q-px-sm text-weight-bold" style="min-width: 250px; max-width: 250px;" label="Crear"></q-btn>
                 <div>
                     <q-btn unelevated color="white" icon="clear" type="reset" class="q-py-lg q-px-sm text-weight-bold" text-color="dark" outline style="min-width: 250px; max-width: 250px;" label="Descartar"></q-btn>
                 </div>
-                <button type="submit" style="display: none;" ref="submitHiddenBtn"></button>
+                
             </div>
 
         </q-form>
