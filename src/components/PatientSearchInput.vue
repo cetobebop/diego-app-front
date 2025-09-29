@@ -47,7 +47,7 @@ function search() {
 
     timeout = setTimeout(function () {
         searchPatients()
-    }, 1000);
+    }, 400);
    
 }
 
